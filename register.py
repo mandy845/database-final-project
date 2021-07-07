@@ -14,21 +14,21 @@ window.title("lifechoices online Login Page")
 mydb = mysql.connector.connect(user="lifechoices",
                                password="@Lifechoices1234", host="127.0.0.1", database="LS_Login",
                                auth_plugin="mysql_native_password")
-mycurso = mydb.cursor()
-xy = mycurso.execute("select*from Login")
-for i in mycurso:
+mycursor = mydb.cursor()
+xy = mycursor.execute("select*from Login")
+for i in mycursor:
     print(i)
 
 
 def registration():
     global mydb
-    sql = "INSERT INTO Login VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO Login VALUES(%s, %s, %s, %s, %s, %s,%s,s%)"
     val = (userentry.get(), entrypass.get(), identry.get(), numbentry.get(), nextentry.get(), kinentry.get())
-    mycurso.execute(sql, val)
+    mycursor.execute(sql, val)
     mydb.commit()
     import pdb; pdb.set_trace()
-    mycurso.execute("Select * from login")
-    for i in mycurso:
+    mycursor.execute("Select * from login")
+    for i in mycursor:
         print(i)
     import main
 
@@ -98,7 +98,7 @@ reset_btn.place(x=430, y=370)
 exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=close)
 exit_btn.place(x=430, y=420)
 
-cal_btn = Button(window, text='register', bg='#8DC63F', pady=10, width=10)
+cal_btn = Button(window, text='register', bg='#8DC63F', pady=10, width=10, command=registration)
 cal_btn.place(x=120, y=370)
 
 
