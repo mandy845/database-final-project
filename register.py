@@ -22,12 +22,11 @@ for i in mycursor:
 
 def registration():
     global mydb
-    sql = "INSERT INTO Login VALUES(%s, %s, %s, %s, %s, %s,%s,s%)"
-    val = (userentry.get(), entrypass.get(), identry.get(), numbentry.get(), nextentry.get(), kinentry.get())
+    sql = "INSERT INTO Login(Name, Surname, ID_number, Contact_number, Next_of_kin_name, Next_of_kin_number, username, Password) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (userentry.get(), entrypass.get(), identry.get(), numbentry.get(), nextentry.get(), kinentry.get(), username_en.get(),pass_en.get())
     mycursor.execute(sql, val)
     mydb.commit()
-    import pdb; pdb.set_trace()
-    mycursor.execute("Select * from login")
+    mycursor.execute("Select * from Login")
     for i in mycursor:
         print(i)
     import main
@@ -88,6 +87,16 @@ kin = Label(window, text="Enter contact No(next of kin)")
 kin.place(x=50, y=250)
 kinentry = Entry(window, width=25)
 kinentry.place(x=280, y=250)
+
+username_lbl= Label(window, text="create username")
+username_lbl.place(x=50, y=280)
+username_en= Entry(window, width=25)
+username_en.place(x=280, y=280)
+
+pass_lbl= Label(window, text="create password")
+pass_lbl.place(x=50, y=320)
+pass_en= Entry(window, width=25)
+pass_en.place(x=280, y=320)
 
 
 # buttons
