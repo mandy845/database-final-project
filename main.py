@@ -1,110 +1,45 @@
-import mysql.connector
 from tkinter import *
 from tkinter import messagebox
-import datetime
-from validate_email import validate_email
-import rsaidnumber
-
-
 window = Tk()
-window.geometry("500x500")
+window.geometry("400x400")
 window.title("lifechoices online Login Page")
 
-# definition
+canvas = Canvas(window, width=593, height=176)
+canvas.place(x=0, y=0)
+img = PhotoImage(file="download.png")
+canvas.create_image(0, 0, anchor=NW, image=img)
 
-mydb = mysql.connector.connect(user="lifechoices",
-                               password="@Lifechoices1234", host="127.0.0.1", database="LS_Login",
-                               auth_plugin="mysql_native_password")
-mycurso = mydb.cursor()
-xy = mycurso.execute("select*from Login")
+# definitions
 
-obj = {}
-for i in mycurso:
-    rcv = {i[6]: i[7]}
-    keys = rcv.keys()
-    entries = rcv.values()
+def asign():
+    mgbox = messagebox.askquestion("Welcome to Lifechoices","do you want to log in as User")
 
-    for key in keys:
-        for entry in entries:
-            obj[key] = entry
-
-print(obj)
-
-
-def register():
-    window.destroy()
-    import register
-
-
-
-user_pass = obj
-
-
-def clear_entry():
-    userentry.delete(0, 'end')
-    entrypass.delete(0, 'end')
-
-
-
-
-
-def user_pass_search(username, _password, _dict):
-    if username in _dict:
-        if _password == _dict[username]:
-            return 1
-        else:
-            return 0
-    else:
-        return -1
-
-
-def verify():
-    user = userentry.get()
-    password = entrypass.get()
-
-    x = int(user_pass_search(user, password, user_pass))
-    print(" ")
-    if x == 1:
+    if mgbox == "yes":
         window.destroy()
+        import signin
+    else:
+        messagebox.showinfo("welcome back admin", "you will get to admin user screen")
+        window.destroy()
+        import admin
 
-    elif x == 0:
-        messagebox.showinfo("Alert", "Incorrect password ")
-        userentry.delete(0, 'end')
-        entrypass.delete(0, 'end')
-    elif x == -1:
-        messagebox.showinfo("Alert", "Username Doesn't Exist")
-        userentry.delete(0, 'end')
-        entrypass.delete(0, 'end')
+def exit():
+    mgbox = messagebox.askquestion("exit application", "are you sure you want to exit", icon="warning")
+
+    if mgbox == "yes":
+        window.destroy()
+    else:
+        messagebox.showinfo("return", "you'll return to your application")
 
 
+# Labels
 
 
-# labels
-heading = Label(window, text="Life choices Registration", font=100, bg="#8DC63F")
-heading.place(x=100, y=10)
+# button
+reset_btn = Button(window, text='Login', bg='#8DC63F', pady=10, width=10, command=asign)
+reset_btn.place(x=100, y=210)
 
-lbluser = Label(window, text="Enter your Surname", font=20)
-lbluser.place(x=50, y=100)
-userentry = Entry(window, width=25)
-userentry.place(x=280, y=100)
+exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=exit)
+exit_btn.place(x=200, y=210)
 
-lblpass = Label(window, text="Enter your Name", font=20,)
-lblpass.place(x=50, y=130)
-entrypass = Entry(window, width=25)
-entrypass.place(x=280, y=130)
-
-# buttons
-
-reset_btn = Button(window, text='clear', bg='#8DC63F', pady=10, width=10, command=clear_entry)
-reset_btn.place(x=430, y=370)
-
-exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=lambda: window.destroy())
-exit_btn.place(x=430, y=420)
-
-cal_btn = Button(window, text='register', bg='#8DC63F', pady=10, width=10, command=register)
-cal_btn.place(x=120, y=370)
-
-loginbtn= Button(window, text="Login", bg='#8DC63F', pady=10, width=10, command=verify)
-loginbtn.place(x=120, y=420)
 
 window.mainloop()

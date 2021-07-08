@@ -22,8 +22,9 @@ for i in mycursor:
 
 def registration():
     global mydb
-    sql = "INSERT INTO Login(Name, Surname, ID_number, Contact_number, Next_of_kin_name, Next_of_kin_number, username, Password) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
-    val = (userentry.get(), entrypass.get(), identry.get(), numbentry.get(), nextentry.get(), kinentry.get(), username_en.get(),pass_en.get())
+    sql = "INSERT INTO Login(Name, Surname, ID_number, Contact_number, Next_of_kin_name, " \
+          "Next_of_kin_number, username, Password) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (userentry.get(), entrypass.get(), identry.get(), numbentry.get(), nextentry.get(), kinentry.get(), username_en.get(), pass_en.get())
     mycursor.execute(sql, val)
     mydb.commit()
     mycursor.execute("Select * from Login")
@@ -32,11 +33,19 @@ def registration():
     import main
 
 
-
 def clear():
     entrypass.delete(0, 'end')
     userentry.delete(0, 'end')
     identry.delete(0, 'end')
+    numbentry.delete(0, 'end')
+    nextentry.delete(0, 'end')
+    kinentry.delete(0, 'end')
+    username_en.delete(0, 'end')
+    pass_en.delete(0, 'end')
+
+
+
+
 
 
 def close():
@@ -52,6 +61,14 @@ def login():
     current_year = datetime.date.today().year
     year_of_birth = id.date_of_birth.year
     age = current_year - year_of_birth
+
+def close():
+    mgbox = messagebox.askquestion("exit application", "are you sure you want to exit", icon="warning")
+
+    if mgbox == "yes":
+        window.destroy()
+    else:
+        messagebox.showinfo("return", "you'll return to your application")
 
 
 # Defining the first row
@@ -78,34 +95,34 @@ numb.place(x=50, y=190)
 numbentry = Entry(window, width=25)
 numbentry.place(x=280, y=190)
 
-next = Label(window, text="Enter your name (next of kin)")
+next = Label(window, text="Enter next of kin name", font=20)
 next.place(x=50, y=220)
 nextentry = Entry(window, width=25)
 nextentry.place(x=280, y=220)
 
-kin = Label(window, text="Enter contact No(next of kin)")
+kin = Label(window, text="Enter next of kin contacts", font=20)
 kin.place(x=50, y=250)
 kinentry = Entry(window, width=25)
 kinentry.place(x=280, y=250)
 
-username_lbl= Label(window, text="create username")
+username_lbl = Label(window, text="Create username", font=20)
 username_lbl.place(x=50, y=280)
-username_en= Entry(window, width=25)
+username_en = Entry(window, width=25)
 username_en.place(x=280, y=280)
 
-pass_lbl= Label(window, text="create password")
+pass_lbl = Label(window, text="Create password", font=20)
 pass_lbl.place(x=50, y=320)
-pass_en= Entry(window, width=25)
+pass_en = Entry(window, width=25)
 pass_en.place(x=280, y=320)
 
 
 # buttons
 
 reset_btn = Button(window, text='clear', bg='#8DC63F', pady=10, width=10, command=clear)
-reset_btn.place(x=430, y=370)
+reset_btn.place(x=380, y=370)
 
 exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=close)
-exit_btn.place(x=430, y=420)
+exit_btn.place(x=380, y=420)
 
 cal_btn = Button(window, text='register', bg='#8DC63F', pady=10, width=10, command=registration)
 cal_btn.place(x=120, y=370)
