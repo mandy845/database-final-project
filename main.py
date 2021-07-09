@@ -12,9 +12,10 @@ canvas.create_image(0, 0, anchor=NW, image=img)
 # definitions
 
 def asign():
-    mgbox = messagebox.askquestion("Welcome to Lifechoices","do you want to log in as User")
+    mgbox = messagebox.askquestion("Welcome to Lifechoices", "do you want to log in as User")
 
     if mgbox == "yes":
+        messagebox.showinfo("Welcome to Life choices!", "Enjoy being part of us")
         window.destroy()
         import signin
     else:

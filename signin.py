@@ -54,6 +54,7 @@ def user_pass_search(username, _password, _dict):
         return -1
 
 
+
 def verify():
     user = userentry.get()
     password = entrypass.get()
@@ -61,6 +62,49 @@ def verify():
     x = int(user_pass_search(user, password, user_pass))
     print(" ")
     if x == 1:
+        now = datetime.datetime.now()
+        date = "{}".format(now.date())
+        minute = now.minute
+        hour = now.hour
+        if minute <= 9:
+            minute = "0" + str(minute)
+        if hour <= 9:
+            hour = "0" + str(hour)
+        time = "{}:{}".format(hour, minute)
+        mycurso.execute("UPDATE Login SET sign_in_time ='" + time + "' WHERE username='" + userentry.get() + "'")
+        mydb.commit()
+        messagebox.showinfo("successful", "you have successfully logged in")
+        window.destroy()
+
+    elif x == 0:
+        messagebox.showinfo("Alert", "Incorrect password ")
+        userentry.delete(0, 'end')
+        entrypass.delete(0, 'end')
+    elif x == -1:
+        messagebox.showinfo("Alert", "Username Doesn't Exist")
+        userentry.delete(0, 'end')
+        entrypass.delete(0, 'end')
+
+
+def sign_out():
+    user = userentry.get()
+    password = entrypass.get()
+
+    x = int(user_pass_search(user, password, user_pass))
+    print(" ")
+    if x == 1:
+        now = datetime.datetime.now()
+        date = "{}".format(now.date())
+        minute = now.minute
+        hour = now.hour
+        if minute <= 9:
+            minute = "0" + str(minute)
+        if hour <= 9:
+            hour = "0" + str(hour)
+        time = "{}:{}".format(hour, minute)
+        mycurso.execute("UPDATE Login SET sign_out_time ='" + time + "' WHERE username='" + userentry.get() + "'")
+        mydb.commit()
+        messagebox.showinfo("successful", "you have successfully logged out")
         window.destroy()
 
     elif x == 0:
@@ -101,5 +145,8 @@ cal_btn.place(x=120, y=210)
 
 loginbtn= Button(window, text="Login", bg='#8DC63F', pady=10, width=10, command=verify)
 loginbtn.place(x=120, y=260)
+
+logoutbtn = Button(window, text="Logout", bg='#8DC63F', pady=10, width=10, command=sign_out)
+logoutbtn.place(x=120, y=300)
 
 window.mainloop()

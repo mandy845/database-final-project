@@ -30,7 +30,8 @@ def registration():
     mycursor.execute("Select * from Login")
     for i in mycursor:
         print(i)
-    import main
+    window.destroy()
+    import signin
 
 
 def clear():
@@ -61,14 +62,6 @@ def login():
     current_year = datetime.date.today().year
     year_of_birth = id.date_of_birth.year
     age = current_year - year_of_birth
-
-def close():
-    mgbox = messagebox.askquestion("exit application", "are you sure you want to exit", icon="warning")
-
-    if mgbox == "yes":
-        window.destroy()
-    else:
-        messagebox.showinfo("return", "you'll return to your application")
 
 
 # Defining the first row
