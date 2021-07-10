@@ -13,7 +13,7 @@ canvas.create_image(0, 0, anchor=NW, image=img)
 
 
 def asign():
-    mgbox = messagebox.askquestion("Welcome to Lifechoices", "Are you an Admin")
+    mgbox = messagebox.askquestion("Welcome to Lifechoices", "Are you an Admin?")
 
     if mgbox == "yes":
         messagebox.showinfo("Welcome back Admin,", "you will return to your log in screen")

@@ -58,8 +58,6 @@ def close():
         messagebox.showinfo("return", "you'll return to your application")
 
 
-
-
 # Defining the first row
 heading = Label(window, text="Life choices Registration", font=100, bg="#8DC63F")
 heading.place(x=100, y=10)
