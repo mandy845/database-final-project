@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import mysql.connector
 window = Tk()
-window.geometry("400x400")
+window.geometry("500x400")
 window.title("lifechoices online Login Page")
 
 
@@ -67,10 +67,26 @@ def verify():
         userentry.delete(0, 'end')
         entrypass.delete(0, 'end')
 
+# allows to count how many people logged in
+def log_count():
+    mycurso.execute("SELECT * FROM Login WHERE sign_in_time is not NULL")
+    count = len(mycurso.fetchall())
+    print(count)
+    messagebox.showinfo("Login's", " The number of people logged in is: " + str(count))
+
+
+def exit():
+    mgbox = messagebox.askquestion("exit application", "are you sure you want to exit", icon="warning")
+
+    if mgbox == "yes":
+        window.destroy()
+    else:
+        messagebox.showinfo("return", "you'll return to your application")
 
 # labels
 
-heading = Label(window, text="Life choices Registration", font=100, bg="#8DC63F")
+
+heading = Label(window, text="Life choices admin screen", font=100, bg="#8DC63F")
 heading.place(x=100, y=10)
 
 lbluser = Label(window, text="Enter your username", font=20)
@@ -88,12 +104,14 @@ entrypass.place(x=280, y=130)
 reset_btn = Button(window, text='clear', bg='#8DC63F', pady=10, width=10, command=clear_entry)
 reset_btn.place(x=380, y=210)
 
-exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=lambda: window.destroy())
+exit_btn = Button(window, text='Exit', bg='#8DC63F', pady=10, width=10, command=exit)
 exit_btn.place(x=380, y=260)
 
 
 loginbtn= Button(window, text="Login", bg='#8DC63F', pady=10, width=10, command=verify)
 loginbtn.place(x=120, y=260)
+countbtn=Button(window,text='count', bg='#8DC63F', pady=10, width=10, command=log_count)
+countbtn.place(x=120, y=210)
 
 
 window.mainloop()

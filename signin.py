@@ -64,6 +64,8 @@ def verify():
     if x == 1:
         now = datetime.datetime.now()
         date = "{}".format(now.date())
+        mycurso.execute("UPDATE Login SET sign_in_date ='" + date + "' WHERE username='" + userentry.get() + "'")
+        mydb.commit()
         minute = now.minute
         hour = now.hour
         if minute <= 9:
@@ -86,6 +88,8 @@ def verify():
         entrypass.delete(0, 'end')
 
 
+
+
 def sign_out():
     user = userentry.get()
     password = entrypass.get()
@@ -95,6 +99,8 @@ def sign_out():
     if x == 1:
         now = datetime.datetime.now()
         date = "{}".format(now.date())
+        mycurso.execute("UPDATE Login SET sign_out_date ='" + date + "' WHERE username='" + userentry.get() + "'")
+        mydb.commit()
         minute = now.minute
         hour = now.hour
         if minute <= 9:
@@ -103,6 +109,8 @@ def sign_out():
             hour = "0" + str(hour)
         time = "{}:{}".format(hour, minute)
         mycurso.execute("UPDATE Login SET sign_out_time ='" + time + "' WHERE username='" + userentry.get() + "'")
+        mydb.commit()
+        mycurso.execute("UPDATE Login SET sign_in_date ='" + date + "' WHERE username='" + userentry.get() + "'")
         mydb.commit()
         messagebox.showinfo("successful", "you have successfully logged out")
         window.destroy()
@@ -147,6 +155,6 @@ loginbtn= Button(window, text="Login", bg='#8DC63F', pady=10, width=10, command=
 loginbtn.place(x=120, y=260)
 
 logoutbtn = Button(window, text="Logout", bg='#8DC63F', pady=10, width=10, command=sign_out)
-logoutbtn.place(x=120, y=300)
+logoutbtn.place(x=250, y=210)
 
 window.mainloop()

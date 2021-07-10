@@ -30,6 +30,7 @@ def registration():
     mycursor.execute("Select * from Login")
     for i in mycursor:
         print(i)
+    messagebox.showinfo("Congradulations", "you are part of lifechoices academy")
     window.destroy()
     import signin
 
@@ -57,11 +58,6 @@ def close():
         messagebox.showinfo("return", "you'll return to your application")
 
 
-def login():
-    id = rsaidnumber.parse(identry.get())
-    current_year = datetime.date.today().year
-    year_of_birth = id.date_of_birth.year
-    age = current_year - year_of_birth
 
 
 # Defining the first row
